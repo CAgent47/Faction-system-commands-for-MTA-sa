@@ -2,6 +2,50 @@
 
 --=================================================== Created By GodFather =======================================================
 
+---@diagnostic disable: undefined-global, undefined-global, lowercase-global, param-type-mismatch, redundant-parameter
+
+-- ========================Variables===========================
+
+local accSys = exports["Accounts-System"] -- db Connect
+local mickSys = export["mick"] -- find & .....
+local notf = exports["notf"] -- notf in Server
+local find = mickSys:findPlayer("player")
+local Player_admin = tonumber(getElementData(accSys.getPlayerAcc(thePlayer), "pAdmin"))
+local find_admin = tonumber(getElementData(accSys.getPlayerAcc(find), "pAdmin"))
+local find_name = getPlayername(find)
+local thePlayer_name = getPlayerName(thePlayer)
+local Player_Rank_Faction = tonumber(getElementData(accSys.getPlayerAcc(thePlayer), "pFactionRank"))
+local find_Rank_Faction = tonumber(getElementData(accSys.getPlayerAcc(find), "pFactionRank"))
+local Player_Faction = tonumber(getElementData(accSys.getPlayerAcc(thePlayer), "pFaction"))
+local find_Faction = tonumber(getElementData(accSys.getPlayerAcc(find), "pFaction"))
+local Player_Warn = tonumber(getElementData(accSys.getPlayerAcc(thePlayer), "pFactionWarn"))
+local find_Warn = tonumber(getElementData(accSys.getPlayerAcc(find), "pFactionWarn"))
+local find_Ban_Faction = tonumber(getElementData(accSys.getPlayerAcc(find), "pFactionBan"))
+local find_Faction_Punish = tonumber(getElementData(accsys.getPlayerAcc(find), "pFactionPunish"))
+local find_Bank = tonumber(getElementData(accSys.getPlayerAcc(find), "pBankCash"))
+
+-- ===================factions Table======================
+
+local factions = {
+    [0] = {name = "Civilian", skin = 2},
+    [1] = {name = "Federal", skin = 117},
+    [2] = {name = "Mechanic", skin = 217},
+    [3] = {name = "National Gard", skin = 200},
+    [4] = {name = "School", skin = 1}
+}
+
+-- Factions Rank
+local frank = {
+    [0] = {rank = "trial"},
+    [1] = {rank = "bronze"},
+    [2] = {rank = "sub"},
+    [3] = {rank = "silver"},
+    [4] = {rank = "gold"},
+    [5] = {rank = "Leader"}
+}
+
+--=================================================== Created By GodFather =======================================================
+
 function invite(thePlayer, command, player, faction, factionrank) -- /invite
     local facrank = frank[factionrank]
     local get_faction = factions[faction]
@@ -12,39 +56,37 @@ function invite(thePlayer, command, player, faction, factionrank) -- /invite
             end
         end
     end
-
-    if thePlayer then
-        if player then
-            if faction then
-                if factionrank then
-                    if (find_Faction) == 0 then
-                        if (find_Ban_Faction) == 0 then
-                            setElementData(accSys.getPlayerAcc(find), "pFaction", get_faction.name)
-                            setElementData(accSys.getPlayerAcc(find), "pFactionRank", facrank.rank)
-                            setElementModel(find, get_faction.skin)
-                            setElementData(accSys.getPlayerAcc(find), "cSkin", get_faction.skin)
-                            outputChatBox("#7a7744[Faction-System]: #FFFFFFplayer #FF0000"..find_name.." #FFFFFFPromoted By #FF0000"..thePlayer_name.." #FFFFFFTo faction #9b00ff"..get_faction.name.." #FFFFFFRank: #0000FF"..facrank.rank, thePlayer, 255, 255, 255, true)
-                            outputChatBox("#7a7744[Faction-System]: #FFFFFFplayer #FF0000"..find_name.." #FFFFFFPromoted By #FF0000"..thePlayer_name.." #FFFFFFTo faction #9b00ff"..get_faction.name.." #FFFFFFRank: #0000FF"..facrank.rank, find, 255, 255, 255, true)
-                            outputDebugString("Player "..find_name.." faction set to "..find_Faction)
-                            exports.Log.newLog("Player "..find_name.." faction set to "..find_Faction)
-                        else
-                            exports["notf"]:addNotification(thePlayer, "Player is faction baned", 'error')
-                        end
+    if (find) then
+        if faction then
+            if factionrank then
+                if (find_Faction) == 0 then
+                    if (find_Ban_Faction) == 0 then
+                        setElementData(accSys.getPlayerAcc(find), "pFaction", get_faction.name)
+                        setElementData(accSys.getPlayerAcc(find), "pFactionRank", facrank.rank)
+                        setElementModel(find, get_faction.skin)
+                        setElementData(accSys.getPlayerAcc(find), "cSkin", get_faction.skin)
+                        outputChatBox("#7a7744[Faction-System]: #FFFFFFplayer #FF0000"..find_name.." #FFFFFFPromoted By #FF0000"..thePlayer_name.." #FFFFFFTo faction #9b00ff"..get_faction.name.." #FFFFFFRank: #0000FF"..facrank.rank, thePlayer, 255, 255, 255, true)
+                        outputChatBox("#7a7744[Faction-System]: #FFFFFFplayer #FF0000"..find_name.." #FFFFFFPromoted By #FF0000"..thePlayer_name.." #FFFFFFTo faction #9b00ff"..get_faction.name.." #FFFFFFRank: #0000FF"..facrank.rank, find, 255, 255, 255, true)
+                        outputDebugString("Player "..find_name.." faction set to "..find_Faction)
+                        exports.Log.newLog("Player "..find_name.." faction set to "..find_Faction)
                     else
-                        exports["notf"]:addNotification(thePlayer, "Player In Faction! (/id "..find_name..")", 'error')
+                        exports["notf"]:addNotification(thePlayer, "Player is faction baned", 'error')
                     end
                 else
-                    exports["notf"]:addNotification(thePlayer, "Enter Rank Number!!", 'error')
+                    exports["notf"]:addNotification(thePlayer, "Player In Faction! (/id "..find_name..")", 'error')
                 end
             else
-               exports["notf"]:addNotification(thePlayer, "please Enter Faction")
+                exports["notf"]:addNotification(thePlayer, "Enter Rank Number!!", 'error')
             end
         else
-            exports["notf"]:addNotification(thePlayer, "Player Not found!", 'error')
+           exports["notf"]:addNotification(thePlayer, "please Enter Faction")
         end
     else
-        exports["notf"]:addNotification(thePlayer, "Syntax: /invite <player_id> <faction id> <faction rank>", 'info')
+        exports["notf"]:addNotification(thePlayer, "Player Not found!", 'error')
     end
+else
+    exports["notf"]:addNotification(thePlayer, "Syntax: /invite <player_id> <faction id> <faction rank>", 'info')
+end
 end
 
 --============================================================================================================================
@@ -73,37 +115,33 @@ function  demote(thePlayer, command, player, ...)
         return false
     end
     local reason = string.sub(table.concat({...}, " "), 1, 90)
-    if thePlayer then
-        if command then
-            if player then
-                if (...) then
-                    
-                    setElementData(accSys.getPlayerAcc(find), "pFaction", 0)
-                    setElementData(accSys.getPlayerAcc(find), "pFactionRank", 0)
-                    setElementData(accSys.getPlayerAcc(find), "pFactionWarn", 0)
-                    setElementData(accSys.getPlayerAcc(find), "pFactionPunish", 20)
-                    outputChatBox("#7a7744[Faction-System]: #FFFFFFplayer #FF0000"..find_name.." #FFFFFF Kicked By #FF0000"..thePlayer_name.." #FFFFFF Reason:"..reason, thePlayer, 255, 255, 255, true)
-                    outputChatBox("#7a7744[Faction-System]: #FFFFFFplayer #FF0000"..find_name.." #FFFFFF Kicked By #FF0000"..thePlayer_name.." #FFFFFF Reason:"..reason, find, 255, 255, 255, true)
-                    if (find_Warn) > 0 and (find_Warn) < 3 then
-                        for warn in ipairs(find_Warn) do
-                            setElementData(accSys.getPlayerAcc(find), "pFactionPunish", find_Faction_Punish + 10)
-                        end
-                    end
-                else
-                    exports["notf"]:addNotification(thePlayer, "Enter Reason", 'error')
+     if (find) then
+        if reason then             
+            setElementData(accSys.getPlayerAcc(find), "pFaction", 0)
+            setElementData(accSys.getPlayerAcc(find), "pFactionRank", 0)
+            setElementData(accSys.getPlayerAcc(find), "pFactionWarn", 0)
+            setElementData(accSys.getPlayerAcc(find), "pFactionPunish", 20)
+            outputChatBox("#7a7744[Faction-System]: #FFFFFFplayer #FF0000"..find_name.." #FFFFFF Kicked By #FF0000"..thePlayer_name.." #FFFFFF Reason:"..reason, thePlayer, 255, 255, 255, true)
+            outputChatBox("#7a7744[Faction-System]: #FFFFFFplayer #FF0000"..find_name.." #FFFFFF Kicked By #FF0000"..thePlayer_name.." #FFFFFF Reason:"..reason, find, 255, 255, 255, true)
+            if (find_Warn) > 0 and (find_Warn) < 3 then
+                for warn in ipairs(find_Warn) do
+                    setElementData(accSys.getPlayerAcc(find), "pFactionPunish", find_Faction_Punish + 10)
                 end
-            else
-                exports["notf"]:addNotification(thePlayer, "Player Not Found!", 'error')
             end
+        else
+            exports["notf"]:addNotification(thePlayer, "Enter Reason", 'error')
         end
-    else
-        exports["notf"]:addNotification(thePlayer, "Syntax: /kickfp <Player> <Reason>", 'info')
-    end
+   else
+      exports["notf"]:addNotification(thePlayer, "Player Not Found!", 'error')
+   end
+end
+else
+  exports["notf"]:addNotification(thePlayer, "Syntax: /kickfp <Player> <Reason>", 'info')
 end
 if (find_Warn) > 0 and (find_Warn) < 3 then
     for warn in ipairs(find_Warn) do
         setElementData(accSys.getPlayerAcc(find), "pFactionPunish", find_Faction_Punish + 10)
-    end 
+end 
 end
 
 --============================================================================================================================
@@ -122,47 +160,44 @@ function warn(thePlayer, cmd, player, warn, ...)
     local calculate_warn = (find_Warn) + warn
     
     if (calculate_warn) >= 4 then
-        notf.addNotification(thePlayer, "Player Warn: "..find_Warn.."/3", 'warning')
+        exports["notf"]:addNotification(thePlayer, "Player Warn: "..find_Warn.."/3", 'warning')
         return false
     end
 
-    if thePlayer then
-        if cmd then
-            if player then
-                if reason then
-                    if (Player_Rank_Faction) > (find_Rank_Faction) then
-                        if (find_Warn) < 3 then
-                            if warn < 4 then
-                                setElementData(accSys.getPlayerAcc(find), "pFactionWarn", find_Warn + 10)
-                                notf.addNotification(thePlayer, "Player Warned Reason:"..reason, 'success')
-                                outputChatBox("#7a7744[Faction-System]: your are get a warn Than #ffffff"..thePlayer_name.. "#7a7744 your warns: #ffffff"..find_Warn.."/3", find, 255, 255, 255, true)
-                                if (find_Warn) >= 3 then
-                                    setElementData(accSys.getPlayerAcc(find), "pFaction", 0)
-                                    setElementData(accSys.getPlayerAcc(find), "pFactionWarn", 0)
-                                    setElementData(accSys.getPlayerAcc(find), "pFactionRank", 0)
-                                    setElementData(accSys.getPlayerAcc(find), "pFactionPunish", find_Faction_Punish + 80) 
-                                    outputChatBox("#7a7744 [Faction-System]: Player #FFFFFF"..find_name.." #7a7744 Kicked with 3 warn", thePlayer, 255, 255, 255, true)
-                                    outputChatBox("#7a7744 [Faction-System]: Player #FFFFFF"..find_name.." #7a7744 Kicked with 3 warn", find, 255, 255, 255, true)
-                                end
-                            end
+    if (find) then
+        if reason then
+            if (Player_Rank_Faction) > (find_Rank_Faction) then
+                if (find_Warn) < 3 then
+                    if warn < 4 then
+                        setElementData(accSys.getPlayerAcc(find), "pFactionWarn", find_Warn + 10)
+                        notf.addNotification(thePlayer, "Player Warned Reason:"..reason, 'success')
+                        outputChatBox("#7a7744[Faction-System]: your are get a warn Than #ffffff"..thePlayer_name.. "#7a7744 your warns: #ffffff"..find_Warn.."/3", find, 255, 255, 255, true)
+                        if (find_Warn) >= 3 then
+                            setElementData(accSys.getPlayerAcc(find), "pFaction", 0)
+                            setElementData(accSys.getPlayerAcc(find), "pFactionWarn", 0)
+                             setElementData(accSys.getPlayerAcc(find), "pFactionRank", 0)
+                             setElementData(accSys.getPlayerAcc(find), "pFactionPunish", find_Faction_Punish + 80) 
+                             outputChatBox("#7a7744 [Faction-System]: Player #FFFFFF"..find_name.." #7a7744 Kicked with 3 warn", thePlayer, 255, 255, 255, true)
+                             outputChatBox("#7a7744 [Faction-System]: Player #FFFFFF"..find_name.." #7a7744 Kicked with 3 warn", find, 255, 255, 255, true)
+                         end
                         end
-                    else
-                        exports["notf"]:addNotification(thePlayer, "how to give warn to leader faction ?", 'error')
                     end
                 else
-                    exports["notf"]:addNotification(thePlayer, "Error: Enter reason for warn message", 'error')
+                   exports["notf"]:addNotification(thePlayer, "how to give warn to leader faction ?", 'error')
                 end
             else
-               exports["notf"]:faddNotification(thePlayer, "player Not found!!", 'error')
+                exports["notf"]:addNotification(thePlayer, "Error: Enter reason for warn message", 'error')
             end
-        else
-            exports["notf"]:addNotification(thePlayer, "Syntax: /warn <player> <warn> <reason>", 'info')
-        end
+       else
+          exports["notf"]:faddNotification(thePlayer, "player Not found!!", 'error')
+       end
     else
-       exports["notf"]:addNotification(thePlayer, "Syntax: /warn <player> <warn> <reason>", 'info')
+        exports["notf"]:addNotification(thePlayer, "Syntax: /warn <player> <warn> <reason>", 'info')
     end
+ else
+   exports["notf"]:addNotification(thePlayer, "Syntax: /warn <player> <warn> <reason>", 'info')
+ end
 end
-
 --============================================================================================================================
 --============================================================================================================================
 
@@ -171,19 +206,17 @@ function warns(thePlayer)
     if (Player_Rank_Faction) < 4 or (Player_admin) < 15 then
         return false
     end
-    if thePlayer then
-        outputChatBox("#FFAE00 ================================================", thePlayer, 255, 255, 255 , true)
-        for i in ipairs(getElementsByType("player")) do
-            if getElementData(i, "LogedIn") == true then
-                if tonumber(getElementData(accSys.getPlayerAcc(i), "pFaction")) == (Player_Faction) then
-                    if tonumber(getElementData(accSys.getPlayerAcc(i), "pFactionWarn")) > 1 then
-                        outputChatBox("#F00BAB "..getPlayerName(i)..": #FFFFFF"..tonumber(getElementData(accSys.getPlayerAcc(i), "pFactionWarn")).."/3", thePlayer, 255, 255, 255, true)
-                    end
+    outputChatBox("#FFAE00 ================================================", thePlayer, 255, 255, 255 , true)
+    for i in ipairs(getElementsByType("player")) do
+        if getElementData(i, "LogedIn") == true then
+            if tonumber(getElementData(accSys.getPlayerAcc(i), "pFaction")) == (Player_Faction) then
+                if tonumber(getElementData(accSys.getPlayerAcc(i), "pFactionWarn")) > 1 then
+                    outputChatBox("#F00BAB "..getPlayerName(i)..": #FFFFFF"..tonumber(getElementData(accSys.getPlayerAcc(i), "pFactionWarn")).."/3", thePlayer, 255, 255, 255, true)
                 end
             end
         end
-        outputChatBox("#FFAE00 ================================================", thePlayer, 255, 255, 255 , true)
     end
+    outputChatBox("#FFAE00 ================================================", thePlayer, 255, 255, 255 , true)
 end
 
 --============================================================================================================================
@@ -198,27 +231,25 @@ function salary(thePlayer, cmd, amount)
     local amount = tonumber(amount)
     local Player_Cash = tonumber(getElementData(accSys.getPlayerAcc(thePlayer), "pBankCash"))
     local Player_money = tonumber(getElementData(accSys.getPlayerAcc(thePlayer), "pCash"))
-    if thePlayer then
-        if cmd then
-            if amount and amount < 100000000 and amount > 0 then
-                if (Player_Faction) ~= 0 then
-                    for Players_Faction in ipairs(getElementsByTyps("player")) do
-                        if tonumber(getElementdata(accSys.getPlayerAcc(Players_Faction), "pFaction")) == (Player_Faction) then
-                            if (Player_Cash) >= amount or (Player_money) >= amount then
-                                setElementData(accSys.getPlayerAcc(Players_Faction), "pBankCash", find_Bank + amount) 
-                                outputChatBox("#FFAE00 your Salary in Server bank goto bank for get your salary!!", Players_Faction, 255, 255, 255, true)
-                            else
-                                exports["notf"]:addNotification(thePlayer, "your cash is Low", 'error')
-                            end
-                        end
-                    end
-                end
-            else
-               exports["notf"]:addNotification(thePlayer, "wrong input amount!!", 'error')
-            end 
-        end
+    if amount and amount < 100000000 and amount > 0 then
+         if (Player_Faction) ~= 0 then
+               for Players_Faction in ipairs(getElementsByTyps("player")) do
+                     if tonumber(getElementdata(accSys.getPlayerAcc(Players_Faction), "pFaction")) == (Player_Faction) then
+                         if (Player_Cash) >= amount or (Player_money) >= amount then
+                              setElementData(accSys.getPlayerAcc(Players_Faction), "pBankCash", find_Bank + amount) 
+                              outputChatBox("#FFAE00 your Salary in Server bank goto bank for get your salary!!", Players_Faction, 255, 255, 255, true)
+                         else
+                             exports["notf"]:addNotification(thePlayer, "your cash is Low", 'error')
+                         end
+                     end
+                 end
+             end
+         else
+            exports["notf"]:addNotification(thePlayer, "wrong input amount!!", 'error')
+         end 
+     end
     else
-        exports["notf"]:addNotification(thePlayer, "Syntax: /salary <amount>")
+       exports["notf"]:addNotification(thePlayer, "Syntax: /salary <amount>")
     end
 end
 
@@ -231,37 +262,29 @@ function clearwarn(thePlayer, cmd, player, cwnum)
     end
 
     local cwarn = tonumber(cwnum)
-    if thePlayer then
-        if cmd then
-            if player then
-                if cwarn then
-                    if cwarn == 1 then
-                        if (find_Warn) > 0 then
-                            setElementData(accSys.getPlayerAcc(find), "pFactionWarn", find_Warn - cwarn) 
-                            if (find_Warn) < 0 then
-                                setElementData(accSys.getPlayerAcc(find), "pFactionWarn", find_Warn + cwarn) 
-                                notf.addNotification(thePlayer, "wrong warn!! Player warns:"..find_Warn, 'error')
-                            end
-                            outputChatBox("#7a7744 [Faction-System]: #FFFFF 1 warn cleared By #FF0000"..thePlayer_name.." #FFFFFF for #FF0000"..find_name, thePlayer, 255, 255, 255, true)
-                            outputChatBox("#7a7744 [Faction-System]: #FFFFF 1 warn cleared By #FF0000"..thePlayer_name.." #FFFFFF for #FF0000"..find_name, find, 255, 255, 255, true)
-                        else
-                            exports["notf"]:addNotification(thePlayer, "find player warns: 0", 'error')
+       if (find) then
+            if cwarn then
+                if cwarn == 1 then
+                    if (find_Warn) > 0 then
+                        setElementData(accSys.getPlayerAcc(find), "pFactionWarn", find_Warn - cwarn) 
+                        if (find_Warn) < 0 then
+                            setElementData(accSys.getPlayerAcc(find), "pFactionWarn", find_Warn + cwarn) 
+                            notf.addNotification(thePlayer, "wrong warn!! Player warns:"..find_Warn, 'error')
                         end
+                        outputChatBox("#7a7744 [Faction-System]: #FFFFF 1 warn cleared By #FF0000"..thePlayer_name.." #FFFFFF for #FF0000"..find_name, thePlayer, 255, 255, 255, true)
+                        outputChatBox("#7a7744 [Faction-System]: #FFFFF 1 warn cleared By #FF0000"..thePlayer_name.." #FFFFFF for #FF0000"..find_name, find, 255, 255, 255, true)
                     else
-                        exports["notf"]:addNotification(thePlayer, "warn for clean = 0", 'error')
+                        exports["notf"]:addNotification(thePlayer, "find player warns: 0", 'error')
                     end
                 else
-                   exports["notf"]:addNotification(thePlayer, "Error: Enter clear warn digit", 'error')
-                end   
-            else                 
-                exports["notf"]:addNotification(thePlayer, "Player not found!!", 'error')
-            end
-        else
-            exports["notf"]:addNotification(thePlayer, "Syntax: /cwarn <player> <warn>")
+                    exports["notf"]:addNotification(thePlayer, "warn for clean = 0", 'error')
+                end
+            else
+               exports["notf"]:addNotification(thePlayer, "Error: Enter clear warn digit", 'error')
+            end   
+        else                 
+            exports["notf"]:addNotification(thePlayer, "Player not found!!", 'error')
         end
-    else
-        exports["notf"]:addNotification(thePlayer, "Syntax: /cwarn <player> <warn>")
-    end
 end
 
 --============================================================================================================================
@@ -272,16 +295,14 @@ function clearwarns(thePlayer)
         return false
     end
 
-    if thePlayer then
-        for l, n in ipairs(getElementsByTyps("player")) do
-            if tonumber(getElementData(accSys.getPlayerAcc(n), "pFaction")) >= 1 then
-                if tonumber(getElementData(accSys.getPlayerAcc(n), "pFactionWarn")) >= 1 then
-                    setElementData(accSys.getPlayerAcc(n), "pFactionWarn", 0)
-                    outputChatBox("#7a7744 [Faction-System]: #FFFFF All Faction Warns seted #FF0000 0 #FFFFF for all factions by #FF0000"..thePlayer_name, n, 255, 255, 255, true)
-                    triggerClientEvent(root, "PlayNotf", root)
-                    outputDebugString("Admin "..thePlayer_name.." Cleared all faction warns!!")
-                    exports.Log.newLog("Admin "..thePlayer_name.." Cleared all faction warns!!")
-                end
+    for l, n in ipairs(getElementsByTyps("player")) do
+        if tonumber(getElementData(accSys.getPlayerAcc(n), "pFaction")) >= 1 then
+            if tonumber(getElementData(accSys.getPlayerAcc(n), "pFactionWarn")) >= 1 then
+                setElementData(accSys.getPlayerAcc(n), "pFactionWarn", 0)
+                outputChatBox("#7a7744 [Faction-System]: #FFFFF All Faction Warns seted #FF0000 0 #FFFFF for all factions by #FF0000"..thePlayer_name, n, 255, 255, 255, true)
+                triggerClientEvent(root, "PlayNotf", root)
+                outputDebugString("Admin "..thePlayer_name.." Cleared all faction warns!!")
+                exports.Log.newLog("Admin "..thePlayer_name.." Cleared all faction warns!!")
             end
         end
     end
@@ -297,32 +318,24 @@ function banf(thePlayer, cmd, player, time, ...)
 
     local reason = string.sub(table.concat({...}, " "), 1, 90)
     local time = tonumber(time)
-    if thePlayer then
-        if cmd then
-            if player then
-                if time then
-                    if reason then
-                        setElementData(accSys.getPlayerAcc(find), "pFactionBan", time)
-                        for i, m in ipairs(getElementsByType("player")) do
-                            if getElementData(m, "LoggedIn") == true then
-                                outputChatBox("#7a7744 [Faction-System]: #FFFFF Player #FF0000"..find_name.." Faction baned by admin "..thePlayer_name.." #FFFFFreason: #FFAE00"..reason, m, 255, 255, 255, true)
-                            end
+    if (find) then
+            if time then
+                if reason then
+                    setElementData(accSys.getPlayerAcc(find), "pFactionBan", time)
+                    for i, m in ipairs(getElementsByType("player")) do
+                        if getElementData(m, "LoggedIn") == true then
+                            outputChatBox("#7a7744 [Faction-System]: #FFFFF Player #FF0000"..find_name.." Faction baned by admin "..thePlayer_name.." #FFFFFreason: #FFAE00"..reason, m, 255, 255, 255, true)
                         end
-                    else
-                        exports["notf"]:addNotification(thePlayer, "Enter Reason!", 'error')
                     end
                 else
-                    exports["notf"]:addNotification(thePlayer, "Enter ban time")
+                    exports["notf"]:addNotification(thePlayer, "Enter Reason!", 'error')
                 end
             else
-                exports["notf"]:addNotification(thePlayer, "Player Not Found!", 'error')
+                exports["notf"]:addNotification(thePlayer, "Enter ban time")
             end
         else
-            exports["notf"]:addNotification(thePlayer, "Syntax: /fban <player> <time> <reason>", 'info')
+            exports["notf"]:addNotification(thePlayer, "Player Not Found!", 'error')
         end
-    else
-        exports["notf"]:addNotification(thePlayer, "Syntax: /fban <player> <time> <reason>", 'info')
-    end
 end
 
 --=============================================================================================================================
@@ -334,25 +347,18 @@ function promote(thePlayer, cmd, player, rank)
     end
 
     local rank = tonumber(rank)
-    if thePlayer then
-        if cmd then
-            if player then
-                if rank then
-                    setElementData(accSys.getPlayerAcc(find), "pFactionRank", rank)
-                    outputChatBox("#7a7744 [Faction-System]: #FFFFF Player #FF0000"..find_name.." #FFFFF Promoted by #FF0000"..thePlayer_name, thePlayer, 255, 255 ,255, true)
-                    outputChatBox("#7a7744 [Faction-System]: #FFFFF Player #FF0000"..find_name.." #FFFFF Promoted by #FF0000"..thePlayer_name, find, 255, 255 ,255, true)
-                else
-                    exports["notf"]:addNotification(thePlayer, "Enter Rank <1~4> !!!", 'error')
-                end
+        if (find) then
+            if rank then
+                setElementData(accSys.getPlayerAcc(find), "pFactionRank", rank)
+                outputChatBox("#7a7744 [Faction-System]: #FFFFF Player #FF0000"..find_name.." #FFFFF Promoted by #FF0000"..thePlayer_name, thePlayer, 255, 255 ,255, true)
+                outputChatBox("#7a7744 [Faction-System]: #FFFFF Player #FF0000"..find_name.." #FFFFF Promoted by #FF0000"..thePlayer_name, find, 255, 255 ,255, true)
             else
-                exports["notf"]:addNotification(thePlayer, "player not found!!", 'error')
+                exports["notf"]:addNotification(thePlayer, "Enter Rank <1~4> !!!", 'error')
             end
         else
-            exports["notf"]:addNotification(thePlayer, "Syntax: /rankup <player> <rank 1~4>", 'info')
+            exports["notf"]:addNotification(thePlayer, "player not found!!", 'error')
         end
-    else
-        exports["notf"]:addNotification(thePlayer, "Syntax: /rankup <player> <rank 1~4>", 'info')
-    end
+       else
 end
 
 --=============================================================================================================================
@@ -365,31 +371,23 @@ function setFactionPunish(thePlayer, cmd, player, hfp, ...)
 
     local Reason =  string.sub(table.concat({...}, " "), 1, 90)
     local hfp = tonumber(hfp)
-    if thePlayer then
-        if cmd then
-            if player then
-                if hfp then
-                    if Reason then
-                        setElementData(accSys.getPlayerAcc(find), "pFactionPunish", hfp)
-                        notf.addNotification(thePlayer, "Done! findPlayer "..find_name.." fp:"..find_Faction_Punish, 'success')
-                        notf.addNotification(find, "Done! findPlayer "..find_name.." fp:"..find_Faction_Punish, 'success')
-                        outputDebugString("[Faction-System]: faction governor "..thePlayer_name.." changed Faction Punish player: "..find_name.." new Faction Punish: "..hfp)
-                        exports.Log.newLog("[Faction-System]: faction governor "..thePlayer_name.." changed Faction Punish player: "..find_name.." new Faction Punish: "..hfp)
-                    else
-                        exports["notf"]:addNotification(thePlayer, "where is Reason?", 'error')
-                    end
-                else
-                    exports["notf"]:addNotification(thePlayer, "Enter new Faction Punish to change fp", 'warning')
-                end
-            else
-                exports["notf"]:.addNotification(thePlayer, "Player Not Found", 'error')
-            end
-        else
-            exports["notf"]:addNotification(thePlayer, "Syntax: /setfp <Player> <new fp> <reason>", 'info')
-        end
-    else
-        exports["notf"]:addNotification(thePlayer, "Syntax: /setfp <Player> <new fp> <reason>", 'info')
-    end
+     if (find) then
+          if hfp then
+              if Reason then
+                  setElementData(accSys.getPlayerAcc(find), "pFactionPunish", hfp)
+                  notf.addNotification(thePlayer, "Done! findPlayer "..find_name.." fp:"..find_Faction_Punish, 'success')
+                  notf.addNotification(find, "Done! findPlayer "..find_name.." fp:"..find_Faction_Punish, 'success')
+                  outputDebugString("[Faction-System]: faction governor "..thePlayer_name.." changed Faction Punish player: "..find_name.." new Faction Punish: "..hfp)
+                  exports.Log.newLog("[Faction-System]: faction governor "..thePlayer_name.." changed Faction Punish player: "..find_name.." new Faction Punish: "..hfp)
+              else
+                  exports["notf"]:addNotification(thePlayer, "where is Reason?", 'error')
+              end
+          else
+             exports["notf"]:addNotification(thePlayer, "Enter new Faction Punish to change fp", 'warning')
+          end
+      else
+         exports["notf"]:.addNotification(thePlayer, "Player Not Found", 'error')
+      end
 end
 
 --=============================================================================================================================
@@ -405,8 +403,7 @@ function setrank(thePlayer, cmd, player, rank)
         return false
     elseif thePlayer then
         if (Player_Faction) == (find_Faction) then
-            if cmd then
-                if player then
+                if (find) then
                     if rank then
                         if rank ~= (find_Rank_Faction) then
 
@@ -463,12 +460,6 @@ function setrank(thePlayer, cmd, player, rank)
             else
                 exports["notf"]:addNotification(thePlayer, "Syntax: /setfrank <player> <new-rank>", 'info')
             end
-        else
-            exports["notf"]:addNotification(thePlayer, "Syntax: /setfrank <player> <new-rank>", 'info')
-        end
-    else
-        exports["notf"]:addNotification(thePlayer, "Syntax: /setfrank <player> <new-rank>", 'info')
-    end
 
     -- Loop for send demote or promote message to admins for report changes and manage events
     for index, chat_admin in ipairs(getElementsByType("player")) do
@@ -497,10 +488,7 @@ function setfaction(thePlayer, cmd, player, faction, ...)
     if (Player_admin) < 14 then
         return false
     end
-
-    if thePlayer then
-        if cmd then
-            if player then
+            if (find) then
                 if factionID then
                     if (...) then
                         local reason = string.sub(table.concat({...}, " "), 1, 90)
@@ -525,12 +513,6 @@ function setfaction(thePlayer, cmd, player, faction, ...)
             else
                 exports["notf"]:addNotification(thePlayer, "player Not Found", 'error')
             end
-        else
-            exports["notf"]:addNotification(thePlayer, "Syntax: /setf <player> <faction> <reason>", 'info')
-        end
-    else
-        exports["notf"]:addNotification(thePlayer, "Syntax: /setf <player> <faction> <reason>", 'info')
-    end
     for index, chat_admin in ipairs(getElementsByType("player")) do
         local chatRank = tonumber(getElementData(accSys.getPlayerAcc(chat_admin), "pAdmin"))
         if getElementData(chat_admin, "LoggedIn") == true then
@@ -551,9 +533,7 @@ function makeleader(thePlayer, cmd, player, leaderfID)
     else
         local fac = factions[fac]
         local leaderfID = tonumber(leaderfID)
-        if thePlayer then
-            if player then
-                if cmd then
+            if (find) then
                     if leaderfID > 0 and leaderfID < 4 then
                         setElementData(accSys.getPlayerAcc(find), "pFaction", leaderfID)
                         setElementData(accSys.getPlayerAcc(find), "pFactionRank", 5)
@@ -568,15 +548,9 @@ function makeleader(thePlayer, cmd, player, leaderfID)
                     else
                         exports["notf"]:addNotification(thePlayer, "Error: Faction ID (1 ~ 4)", 'error')
                     end
-                else
-                   exports["notf"]:addNotification(thePlayer, "Syntax: /ml <player> <faction (1 ~ 4)>", 'info')
-                end
             else
                exports["notf"]:addNotification(thePlayer, "Player Not Found!!", 'error')
             end
-        else
-            exports["notf"]:addNotification(thePlayer, "Syntax: /ml <player> <faction (1 ~ 4)>", 'info')
-        end
     end
 end
 
