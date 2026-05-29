@@ -1,5 +1,5 @@
 # Faction-system-commands-for-MTA-sa
-Hello, I'm Mohammad, nicknamed Godfather, and today, after 10 days of internet outages in the country, I'm back with a new and useful post.
+Hello, I'm Mohammad, nicknamed CAgent_47, and today, after 10 days of internet outages in the country, I'm back with a new and useful post.
 
 ![MTA](mta131.png)
 
@@ -30,7 +30,7 @@ Hello, I'm Mohammad, nicknamed Godfather, and today, after 10 days of internet o
 
 # How to Run file?
 
-1. ![Click-Me](https://github.com/GodFather850/Faction-system-commands-for-MTA-sa/archive/refs/heads/main.zip)
+1. ![Click-Me](https://github.com/CAgent_47/Faction-system-commands-for-MTA-sa/archive/refs/heads/main.zip)
 
 2.  copy or move lua file and xml file to your recources folder
 
@@ -44,7 +44,7 @@ Hello, I'm Mohammad, nicknamed Godfather, and today, after 10 days of internet o
 
 ---
 # Notifcation
-![Notification_Source_is_Ready_Ckick_to_Downloads](https://github.com/GodFather850/MTA-sa-Script-For-Admins-Ban-admin-/tree/main)
+![Notification_Source_is_Ready_Ckick_to_Downloads](https://github.com/CAgent_47/MTA-sa-Script-For-Admins-Ban-admin-/tree/main)
 ---
 # optional: 
 ```lua
@@ -69,7 +69,7 @@ local find_Ban_Faction = tonumber(getElementData(accSys.getPlayerAcc(find), "pFa
 local find_Faction_Punish = tonumber(getElementData(accsys.getPlayerAcc(find), "pFactionPunish"))
 ```
 ---
-# -👤Created By GodFather
+# -👤Created By CAgent_47
 
 # -📜MTA Scripter • Linux Learner🐧 • Linux User🔥 • python learner 🇺🇸🔥
 
