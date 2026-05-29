@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global, undefined-global, lowercase-global, param-type-mismatch, redundant-parameter
 
---=================================================== Created By GodFather =======================================================
+--=================================================== Created By CAgent_47 =======================================================
 
 addCommandHandler("invite", invite)
 addCommandHandler("flist", list_faction)
