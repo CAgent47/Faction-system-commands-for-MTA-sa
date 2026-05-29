@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global, undefined-global, lowercase-global, param-type-mismatch, redundant-parameter
 
---=================================================== Created By GodFather =======================================================
+--=================================================== Created By CAgent_47 =======================================================
 
 ---@diagnostic disable: undefined-global, undefined-global, lowercase-global, param-type-mismatch, redundant-parameter
 
@@ -554,4 +554,4 @@ function makeleader(thePlayer, cmd, player, leaderfID)
     end
 end
 
---=================================================== Created By GodFather =======================================================
+--=================================================== Created By CAgent_47 =======================================================
