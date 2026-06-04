@@ -74,4 +74,4 @@ local find_Faction_Punish = tonumber(getElementData(accsys.getPlayerAcc(find), "
 # -📜MTA Scripter • Linux Learner🐧 • Linux User🔥 • python learner 🇺🇸🔥
 
 ---
-![Tux](https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg)
+![Banner](banner.png)
