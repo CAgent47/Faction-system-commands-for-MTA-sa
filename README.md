@@ -68,6 +68,11 @@ local find_Warn = tonumber(getElementData(accSys.getPlayerAcc(find), "pFactionWa
 local find_Ban_Faction = tonumber(getElementData(accSys.getPlayerAcc(find), "pFactionBan"))
 local find_Faction_Punish = tonumber(getElementData(accsys.getPlayerAcc(find), "pFactionPunish"))
 ```
+
+---
+
+[#CAgent_47](https://github.com/topics/CAgent47)
+
 ---
 # -👤Created By CAgent_47
 
